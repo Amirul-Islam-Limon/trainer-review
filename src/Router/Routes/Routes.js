@@ -1,11 +1,12 @@
 import AddService from "../../pages/AddService/AddService";
 import AllServices from "../../pages/AllServices/AllServices";
+import Blogs from "../../pages/Blogs/Blogs";
 import Home from "../../pages/Home/Home/Home";
 import Login from "../../pages/Login/Login";
 import MyReviews from "../../pages/MyReviews/MyReviews";
-import MyReviews2 from "../../pages/MyReviews/MyReviews2";
 import ServiceDetails from "../../pages/ServiceDetails/ServiceDetails";
 import SignUp from "../../pages/SignUp/SignUp";
+import PrivateRoute from "./PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../layout/Main");
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/addService",
-                element:<AddService></AddService>
+                element:<PrivateRoute><AddService></AddService></PrivateRoute>
             },
             {
                 path: "/sign-up",
@@ -38,8 +39,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/my-reviews",
-                element:<MyReviews></MyReviews>,
-                // element:<MyReviews2></MyReviews2>
+                element:<PrivateRoute><MyReviews></MyReviews></PrivateRoute>,
+            },
+            {
+                path: "/blogs",
+                element:<Blogs></Blogs>
             },
             {
                 path: "services/:id",

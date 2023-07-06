@@ -4,12 +4,14 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { FaGoogle, FaGithub, FaFacebook } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import useTitle from '../../hooks/useTitle';
 
 const SignUp = () => {
     const {createUserEmailPassword,logInWithGoogle} = useContext(AuthContext)
     const navigate = useNavigate();
 
     const MySwal = withReactContent(Swal)
+    useTitle("Sign Up")
 
     const handleSignUp = (event) => {
         event.preventDefault();

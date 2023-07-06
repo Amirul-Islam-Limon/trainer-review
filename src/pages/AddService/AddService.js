@@ -4,11 +4,13 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 // alert confarmation
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import useTitle from '../../hooks/useTitle';
 
 const AddService = () => {
     const { user } = useContext(AuthContext);
 
     const MySwal = withReactContent(Swal)
+    useTitle("Add Service")
     
     const handleAddService = (event) => {
         event.preventDefault();

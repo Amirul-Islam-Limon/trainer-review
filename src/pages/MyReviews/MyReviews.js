@@ -3,6 +3,7 @@ import deleteIcon from '../../../src/assets/images/deleteIcon.png'
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import useTitle from '../../hooks/useTitle';
 
 const MyReviews = () => {
     const { user } = useContext(AuthContext);
@@ -11,6 +12,7 @@ const MyReviews = () => {
     const [newReviewComment, setNewReviewComment] = useState();
 
     const MySwal = withReactContent(Swal)
+    useTitle("My Reviews");
 
     console.log("newReviewComment", newReviewComment);
 
@@ -50,7 +52,6 @@ const MyReviews = () => {
             }
           })
     }
-
 
 
     const handleOpenModal = async(id) => {
@@ -164,28 +165,29 @@ const MyReviews = () => {
                         <td className='w-30 text-right'><button onClick={()=>handleOpenModal(review._id)} className='btn btn-sm'>Edit Review</button></td>
                     
                         <>
-                    <dialog id="my_modal_3" className="modal">
-                        <form method="dialog" className="modal-box">
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                            <h3 className="font-bold text-lg mb-2">Edit Your Review</h3>
-                            <textarea onBlur={handleNewReviewOnState} name='editReview' placeholder="comment" defaultValue={editReviewComment?.comment} className="textarea textarea-bordered textarea-md w-full" ></textarea>
-                            <div className='flex justify-between'>
-                            <button onClick={()=>handleEditReview(newReviewComment?._id)} className='btn btn-sm btn-primary mt-3'>Save Change</button>        
-                            <button className='btn btn-sm btn-ghost mt-3'>Cancel</button>        
-                            </div>
-                        </form>
-                    </dialog>
-                    </>
+                            <dialog id="my_modal_3" className="modal">
+                                <form method="dialog" className="modal-box">
+                                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    <h3 className="font-bold text-lg mb-2">Edit Your Review</h3>
+                                    <textarea onBlur={handleNewReviewOnState} name='editReview' placeholder="comment" defaultValue={editReviewComment?.comment} className="textarea textarea-bordered textarea-md w-full" ></textarea>
+                                    <div className='flex justify-between'>
+                                    <button onClick={()=>handleEditReview(newReviewComment?._id)} className='btn btn-sm btn-primary mt-3'>Save Change</button>        
+                                    <button className='btn btn-sm btn-ghost mt-3'>Cancel</button>        
+                                    </div>
+                                </form>
+                            </dialog>
+                        </>
 
                         </tr>)     
                         
                     } 
-                
-
 
                 </tbody>    
             </table>
             </div>
+            {/* {
+                myReviews?.length === 0? <h3 className='text-3xl text-center'>Sorry !No Review found</h3>:""
+            } */}
         </div>
     );
 };

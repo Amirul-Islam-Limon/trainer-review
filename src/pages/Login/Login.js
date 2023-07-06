@@ -1,16 +1,20 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { FaGoogle, FaGithub, FaFacebook } from 'react-icons/fa';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import './Login.css';
+import useTitle from '../../hooks/useTitle';
 
 const Login = () => {
     const { logInWithEmailPassword, logInWithGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
-    const MySwal = withReactContent(Swal)
+    const MySwal = withReactContent(Swal);
+    useTitle("Login")
 
     const handleLogIn = (event) => {
         event.preventDefault();
@@ -23,7 +27,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                navigate("/");
+                navigate(from, { replace: true })
             })
             .then(error => {
                 console.log(error);
@@ -35,6 +39,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                navigate(from, { replace: true })
             })
             .then(error => {
                 console.log(error);

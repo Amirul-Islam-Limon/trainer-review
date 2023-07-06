@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
+
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import 'react-photo-view/dist/react-photo-view.css';
 
 const AllServices = () => {
     const [services, setServices] = useState(null)
+
+    useTitle("Services");
 
     useEffect(() => {
         fetch("http://localhost:5000/getServices?limit=all")
@@ -21,7 +27,12 @@ const AllServices = () => {
                     className='p-2'
                 >
                     <div className='flex justify-center'>
-                    <img className='max-h-24' src={service.imageURL} alt="" />
+                    {/* <img className='max-h-24' src={service.imageURL} alt="" /> */}
+                            <PhotoProvider>
+                                <PhotoView src={service.imageURL}>
+                                    <img className='max-h-24 cursor-pointer' title='click to view photo' src={service.imageURL} alt="" />
+                                </PhotoView>
+                            </PhotoProvider>
                     </div>
                     <h4 className='text-2xl text-center pb-2'>{service.serviceName}</h4>
 
