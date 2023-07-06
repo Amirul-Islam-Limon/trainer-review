@@ -97,7 +97,11 @@ const MyReviews = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/allCommentByEmail?email=${user?.email}`)
+        fetch(`http://localhost:5000/allCommentByEmail?email=${user?.email}`, {
+            headers: {
+                authorization:`Bearer ${localStorage.getItem("review-token")}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setMyReviews(data);

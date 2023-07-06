@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, json, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import { FaGoogle, FaGithub, FaFacebook } from 'react-icons/fa';
 import Swal from 'sweetalert2'
@@ -39,7 +39,24 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                navigate(from, { replace: true })
+                const userInfo = {
+                    email: user.email
+                }
+
+                fetch("http://localhost:5000/jwt", {
+                    method: "POST",
+                    headers: {
+                        "content-type":"application/json"
+                    },
+                    body:JSON.stringify(userInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem("review-token", data.token)
+                        console.log(data)
+                    })
+                
+                // navigate(from, { replace: true });
             })
             .then(error => {
                 console.log(error);
